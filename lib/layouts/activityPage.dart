@@ -41,7 +41,7 @@ class ActivityPage extends StatelessWidget {
               InkWell(
               onTap: () {}, // Handle your callback
               child: Ink(height: 100, width: 100, child:Container(
-                  child: Text(mainAppState.activities[index]),
+                  child: Text(mainAppState.activities[index]["activity"]),
                   )
                 ),
               )
