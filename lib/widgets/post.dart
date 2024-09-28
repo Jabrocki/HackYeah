@@ -25,7 +25,7 @@ class Post extends StatelessWidget {
         padding: EdgeInsets.all(16),
         // Stylizacja
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(25),
         ),
         child: Row(
