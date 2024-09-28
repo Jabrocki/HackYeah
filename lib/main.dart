@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MainAppState(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
@@ -51,6 +52,7 @@ class MainPage extends StatelessWidget {
     var mainAppState = context.watch<MainAppState>();
 
     return Scaffold(
+      
       body: Center(
         child: _pageOptions.elementAt(mainAppState.navBarIndex),
       ),

@@ -8,6 +8,16 @@ class WorkPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("WorkPage");
+    return Scaffold(
+      body: ListView(
+        scrollDirection: Axis.vertical,
+        children: [
+          Container(
+            width: 200,
+            child: Text("timer"),
+          )
+        ],
+      ),
+    );
   }
 }
