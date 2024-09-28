@@ -21,33 +21,42 @@ Widget build(BuildContext context) {
     return "${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}";
   }
 
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Text(
-        formatTime(appState.remainingTime), // Wyświetlanie czasu
-        style: const TextStyle(fontSize: 52),
+  return Scaffold(
+    body: SafeArea(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Pomodoro time tracker',
+            ),
+            Text(
+              formatTime(appState.remainingTime), // Wyświetlanie czasu
+              style: const TextStyle(fontSize: 52),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: appState.isRunning ? null : () => appState.startTimer(),
+                  child: const Icon(Icons.play_arrow),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: appState.isRunning ? () => appState.stopTimer() : null,
+                  child: const Icon(Icons.stop),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () => appState.resetTimer(),
+                  child: const Icon(Icons.restart_alt),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton(
-            onPressed: appState.isRunning ? null : () => appState.startTimer(),
-            child: const Icon(Icons.play_arrow),
-          ),
-          const SizedBox(width: 10),
-          ElevatedButton(
-            onPressed: appState.isRunning ? () => appState.stopTimer() : null,
-            child: const Icon(Icons.stop),
-          ),
-          const SizedBox(width: 10),
-          ElevatedButton(
-            onPressed: () => appState.resetTimer(),
-            child: const Icon(Icons.restart_alt),
-          ),
-        ],
-      ),
-    ],
+    ),
   );
 }
 }

@@ -25,11 +25,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Namer App',
         theme: ThemeData(
-        primaryColor: const Color.fromARGB(255, 94, 54, 106),
+        primaryColor: const Color.fromRGBO(218, 191, 255, 255),
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color.fromARGB(255, 94, 54, 106),
-          secondary: const Color.fromARGB(255, 12, 202, 152),
-          surface: const Color.fromARGB(255, 194, 86, 185),
+          secondary: const Color.fromARGB(127, 222, 255, 255,),
+          surface: const Color.fromARGB(218, 191, 255, 255),
         ),
         ),
     home: const MainPage(),
