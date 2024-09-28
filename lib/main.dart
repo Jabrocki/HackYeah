@@ -30,9 +30,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
         primaryColor: const Color.fromRGBO(218, 191, 255, 255),
         colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: const Color.fromARGB(255, 94, 54, 106),
-          secondary: const Color.fromARGB(127, 222, 255, 255,),
-          surface: const Color.fromARGB(218, 191, 255, 255),
+          primary: const Color.fromRGBO(127, 222, 255, 1),
+          secondary: const Color.fromRGBO(144, 122, 214, 1),
+          surface: const Color.fromRGBO(79, 81, 140, 1),
         ),
         
       ),
