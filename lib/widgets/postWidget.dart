@@ -5,19 +5,20 @@ import 'package:provider/provider.dart';
 //App State
 import '../appState/mainAppState.dart';
 
-class Post extends StatelessWidget {
-  final post;
-  final postIndex;
+//Notion
+import '../notion/post.dart';
 
-  const Post({super.key, required this.post, required this.postIndex});
+class PostWidget extends StatelessWidget {
+  final Post post;
+  const PostWidget({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
     var mainAppState = context.watch<MainAppState>();
 
-    void likeUpdate() {
-      mainAppState.mainLikeUpdate(postIndex);
-    }
+    //void likeUpdate() {
+    //  mainAppState.mainLikeUpdate(postIndex);
+    //}
 
     return Align(
       alignment: Alignment.topCenter,
@@ -42,9 +43,9 @@ class Post extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    mainAppState.profiles[post["profileID"]],
+                    post.userName,
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
@@ -52,17 +53,17 @@ class Post extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "${mainAppState.activities[post["activityID"]]["activity"]}: ${post["value"]} ${mainAppState.activities[post["activityID"]]["unit"]}",
+                        "${post.activity}: ${post.value} ",
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.secondary,
                           fontWeight: FontWeight.w400,
                           fontSize: 15,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
-                      ElevatedButton(onPressed: likeUpdate, child: Like(postIndex: postIndex))
+                      ElevatedButton(onPressed: () {}, child: Like(likeNumber: post.likes))
                     ],
                   )
                 ],

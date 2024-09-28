@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hackyeah/layouts/logInPage.dart';
 import 'package:hackyeah/layouts/mainPage.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 //AppState
 import 'appState/mainAppState.dart';
 //Layouts
@@ -12,7 +13,8 @@ import 'layouts/workPage.dart';
 
 
 
-void main() {
+void main() async{
+  await dotenv.load(fileName: '.env');
   runApp(const MyApp());
 }
 
