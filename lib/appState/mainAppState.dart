@@ -73,12 +73,34 @@ class MainAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  
-  int _remainingTime = 25 * 60; // pełny licznik
+  // Lista ciał checkboxów
+  List checkboxes = [
+    {
+      'index': 0,
+      'state': false,
+      'content': "Ergonomiczna postawa",
+    },
+    {
+      'index': 1,
+      'state': false,
+      'content': "Prawidłowa odległość od monitora",
+    },
+    {
+      'index': 2,
+      'state': false,
+      'content': "oświetlone otoczenie",
+    },
+  ];
+
+
+  bool everyBoxChecked = false;
+  int settedTime = 0;
+  int _remainingTime = 0; // pełny licznik
   Timer? _timer; // Timer z biblioteki dart:async
   bool _isRunning = false; //sprawdzanie czy timer jest uruchomiony
   int _completedSessions = 0; // licznik sesji pomodoro
 
+  
   int get remainingTime => _remainingTime;
   bool get isRunning => _isRunning;
   int get remainingMinutes => (_remainingTime / 60).floor();
@@ -86,19 +108,66 @@ class MainAppState extends ChangeNotifier {
   int get completedSessions => _completedSessions;
 
 
+  bool isEveryBoxChecked() {
+  return checkboxes.every((element) => element['state'] == true);
+}
+
+
+
+  void setTimer(int seconds) {
+    if (seconds < 0) {
+      throw ArgumentError("Time must be non-negative.");
+    }
+    else if (_isRunning || !isEveryBoxChecked()) {
+      return;
+    }
+    settedTime = seconds*60;
+    _remainingTime = settedTime;
+    notifyListeners();
+  }
+
+
   void startTimer() {
     // Logika odliczania czasu
-    if (_isRunning) return;
+    if (_isRunning || !isEveryBoxChecked()) return;
 
     _isRunning = true;
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (_remainingTime > 0) {
         _remainingTime--;
-        notifyListeners(); // powiadomienie o zmianie stanu
+        notifyListeners(); // Notify listeners about the time update
       } else {
-        stopTimer(); // Po zakończeniu odliczania zatrzymuje Timer
+        _completedSessions++;
+        stopTimer(); // Stop timer when countdown is complete
+        // Here you might want to notify listeners about session completion
+        notifyListeners(); // Notify about completed session
       }
     });
+  }
+
+
+  // Zwraca stan checkboxa
+  bool getCheckboxState(int index) {
+    var checkbox = checkboxes.firstWhere((element) => element['index'] == index, orElse: () => null);
+    return checkbox != null ? checkbox['state'] : false;
+  }
+
+
+  String getCheckboxContent(int number) {
+  var checkbox = checkboxes.firstWhere((element) => element['index'] == number, orElse: () => null);
+  if (checkbox != null) {
+    return checkbox['content'];
+  }
+  return '';  // Return a default empty string
+}
+
+  // Zmienia stan checkboxa
+  bool changeCheckboxState(int number) {
+    var checkbox = checkboxes.firstWhere((element) => element['index'] == number, orElse: () => null);
+    if (checkbox != null) {
+      checkbox['state'] = !checkbox['state'];
+    }
+    return checkbox != null ? checkbox['state'] : false;
   }
 
 
@@ -112,7 +181,7 @@ class MainAppState extends ChangeNotifier {
 // zatrzymanie timera i ustawienie defaultowego stanu zegara
   void resetTimer() {
     stopTimer();
-    _remainingTime = 25 * 60; 
+    _remainingTime = settedTime; 
     notifyListeners();
   }
 
