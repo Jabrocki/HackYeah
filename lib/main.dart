@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
-import 'appState/mainAppState.dart';
 import 'package:provider/provider.dart';
+//AppState
+import 'appState/mainAppState.dart';
+//Layouts
+import 'layouts/activityPage.dart';
+import 'layouts/communityPage.dart';
+import 'layouts/homePage.dart';
+import 'layouts/workPage.dart';
+
+
 
 void main() {
   runApp(const MyApp());
@@ -31,9 +39,10 @@ class MainPage extends StatelessWidget {
   });
 
   static const List<Widget> _pageOptions = <Widget>[
-    Text("HomePage"),
-    Text("ProfilePage"),
-    Text("TestPage"),
+    HomePage(),
+    ActivityPage(),
+    WorkPage(),
+    CommunityPage(),
   ];
 
   @override
@@ -52,12 +61,16 @@ class MainPage extends StatelessWidget {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.quiz),
-            label: 'Quiz',
+            icon: Icon(Icons.kayaking),
+            label: 'Aktywność',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: Icon(Icons.work),
+            label: 'Work',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.comment),
+            label: 'Community',
           ),
         ],
         currentIndex: mainAppState.navBarIndex,
@@ -68,3 +81,11 @@ class MainPage extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
