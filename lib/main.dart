@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color.fromARGB(255, 94, 54, 106),
           secondary: const Color.fromARGB(255, 12, 202, 152),
-          surface: const Color.fromARGB(255, 51, 25, 64),
+          surface: const Color.fromARGB(255, 194, 86, 185),
         ),
         ),
     home: const MainPage(),
