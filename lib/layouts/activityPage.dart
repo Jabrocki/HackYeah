@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../appState/mainAppState.dart';
+import 'package:flutter_popup_card/flutter_popup_card.dart';
 
 class ActivityPage extends StatelessWidget {
   const ActivityPage({
@@ -14,11 +15,12 @@ class ActivityPage extends StatelessWidget {
     var mainAppState = context.watch<MainAppState>();
 
 
-    return MaterialApp(
-      title: title,
-      home: Scaffold(
+    return Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: AppBar(
-          title: const Text(title),
+          title: Text(title, style: TextStyle(
+          color: Theme.of(context).colorScheme.primary,
+        )),
         ),
         body: GridView.count(
           // Create a grid with 2 columns. If you change the scrollDirection to
@@ -37,16 +39,41 @@ class ActivityPage extends StatelessWidget {
               //   ),
               // ),
               InkWell(
-              onTap: () {}, // Handle your callback
-              child: Ink(height: 100, width: 100, child:Container(
-                  child: Text(mainAppState.activities[index]),
-                  )
+                borderRadius: BorderRadius.circular(25),
+              onTap: () {
+                showPopupCard(
+                  context: context,
+                  builder: (context) {
+                    return PopupCard(
+                      elevation: 8,
+                      color: Theme.of(context).colorScheme.secondary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(50),
+                        child: Text('This is a popup card'),
+                      ),
+                    );
+                  },
+                  alignment: Alignment.center,
+                  useSafeArea: true,
+                  dimBackground: true,
+                );
+              }, // Handle your callback
+              child: Ink(height: 150, width: 150,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: BorderRadius.circular(25),
+                  ),
+                 child:Center(child: Container(
+                  child: Text(mainAppState.activities[index]["activity"]),
+                  ))
                 ),
               )
             );
           }),
         ),
-      ),
     );
   }
 }
