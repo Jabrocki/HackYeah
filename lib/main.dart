@@ -28,6 +28,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Namer App',
         theme: ThemeData(
+        fontFamily: 'Now',             // <-- 1
+        textTheme: Theme.of(context)
+            .textTheme
+            .apply(fontFamily: 'Now'),  // <-- 2
         primaryColor: const Color.fromRGBO(218, 191, 255, 255),
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color.fromRGBO(127, 222, 255, 1),

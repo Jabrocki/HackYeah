@@ -18,7 +18,7 @@ class LogInPage extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).colorScheme.surface,
         child: Center(
           child: Column(
               mainAxisSize: MainAxisSize.max,

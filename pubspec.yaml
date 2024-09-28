@@ -24,4 +24,10 @@ flutter:
   assets:
     - img/logo_big.png
     - img/logo_small.png
+  fonts:
+    - family: Now
+      fonts:
+        - asset: fonts/Now-Regular.otf
+        - asset: fonts/Now-Bold.otf
+          weight: 700
 
