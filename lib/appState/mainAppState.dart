@@ -68,6 +68,10 @@ class MainAppState extends ChangeNotifier {
     }
   ];
 
+  var loginAdmin = "Admin";
+  var passwordAdmin = "Pass";
+  
+  //Update ilości lików w poście
   void mainLikeUpdate (int postIndex) {
     posts[postIndex]["likes"] = posts[postIndex]["likes"] + 1;
     notifyListeners();

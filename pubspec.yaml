@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   provider: ^6.0.0
 
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -18,3 +20,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - img/logo_big.png
+    - img/logo_small.png
+
