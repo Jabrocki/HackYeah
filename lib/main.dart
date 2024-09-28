@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 165, 5, 240)),
         ),
         home: MainPage(),
       ),
@@ -38,9 +38,12 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var mainAppState = context.watch<MainAppState>();
+
     return Scaffold(
       body: Center(
-        child: _pageOptions.elementAt(MainAppState().navBarIndex),
+        child: _pageOptions.elementAt(mainAppState.navBarIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -57,10 +60,10 @@ class MainPage extends StatelessWidget {
             label: 'Profile',
           ),
         ],
-        currentIndex: MainAppState().navBarIndex,
+        currentIndex: mainAppState.navBarIndex,
         selectedItemColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: Theme.of(context).colorScheme.secondary,
-        onTap: MainAppState.navBarTap,
+        onTap: mainAppState.navBarTap,
       ),
     );
   }
