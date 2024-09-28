@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         ),
         
       ),
-      home: AppPage(),
+      home: const AppPage(),
       ),
     );
   }
@@ -61,7 +61,7 @@ class AppPage extends StatelessWidget {
     var mainAppState = context.watch<MainAppState>();
 
     return mainAppState.logIn
-    ? MainPage()
-    : LogInPage();
+    ? const MainPage()
+    : const LogInPage();
   }
 }
