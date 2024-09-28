@@ -3,11 +3,11 @@ import 'package:hackyeah/appState/mainAppState.dart';
 import 'package:provider/provider.dart';
 
 class Like extends StatelessWidget {
-  final postIndex;
+  final int likeNumber;
 
   const Like({
     super.key,
-    required this.postIndex
+    required this.likeNumber
   });
 
   @override
@@ -17,7 +17,7 @@ class Like extends StatelessWidget {
 
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: [Icon(Icons.add), Text(mainAppState.posts[postIndex]["likes"].toString())],
+      children: [Icon(Icons.add), Text(likeNumber.toString())],
     );
   }
 }
