@@ -36,7 +36,7 @@ class MainPage extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.kayaking),
-            label: 'Aktywność',
+            label: 'Activities',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.work),
