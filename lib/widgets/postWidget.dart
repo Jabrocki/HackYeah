@@ -20,20 +20,20 @@ class PostWidget extends StatelessWidget {
     //  mainAppState.mainLikeUpdate(postIndex);
     //}
 
-    return Align(
+    return 
+      Align(
       alignment: Alignment.topCenter,
       child: Container(
         padding: EdgeInsets.all(16),
-        // Stylizacja
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
-          borderRadius: BorderRadius.circular(25),
-        ),
+                // Stylizacja
+                decoration: BoxDecoration(
+                border: Border.all(color: Theme.of(context).colorScheme.primary, width: 4.0),
+                color: Color.fromRGBO(79, 81, 140, 0.8),),
         child: Row(
           children: [
             Icon(
               Icons.person,
-              color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).colorScheme.primary,
               size: 50,
             ),
             Padding(
@@ -45,7 +45,7 @@ class PostWidget extends StatelessWidget {
                   Text(
                     post.userName,
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
@@ -55,7 +55,7 @@ class PostWidget extends StatelessWidget {
                       Text(
                         "${post.activity}: ${post.value} ",
                         style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.w400,
                           fontSize: 15,
                         ),
@@ -63,7 +63,9 @@ class PostWidget extends StatelessWidget {
                       const SizedBox(
                         width: 20,
                       ),
-                      ElevatedButton(onPressed: () {}, child: Like(likeNumber: post.likes))
+                      ElevatedButton(onPressed: () {}, child: Like(likeNumber: post.likes), style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+      ),)
                     ],
                   )
                 ],

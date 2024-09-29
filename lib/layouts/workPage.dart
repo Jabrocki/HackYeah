@@ -41,7 +41,7 @@ class _WorkPageState extends State<WorkPage> {
               _buildRemainingTime(appState),
               const SizedBox(height: 15),
               _buildTimerInput(),
-              const SizedBox(height: 15),
+              const SizedBox(height: 15,),
               _buildControlButtons(appState),
               const SizedBox(height: 15),
               _buildResetButton2(appState),
@@ -122,15 +122,26 @@ class _WorkPageState extends State<WorkPage> {
   }
 
   Widget _buildRemainingTime(MainAppState appState) {
-    return Column(
-      children: [
-        Text('Remaining ${appState.currentState}:'),
-        Text(
-          _formatTime(appState.remainingTime),
-          style: const TextStyle(fontSize: 52, color: Color.fromRGBO(127, 222, 255, 1), fontFamily: 'Now-Black',),
-        ),
-      ],
-    );
+    return 
+    Container(
+      padding: const EdgeInsets.all( 30),
+      width: 380,
+                // Stylizacja
+
+                decoration: BoxDecoration(
+                border: Border.all(color: Theme.of(context).colorScheme.primary, width: 4.0),
+                color: Color.fromRGBO(79, 81, 140, 0.8),),
+    child:
+    Column(
+        children: [
+          Text('Remaining ${appState.currentState}:',
+          style: const TextStyle(fontSize: 20,color: Color.fromRGBO(127, 222, 255, 1))),
+          Text(
+            _formatTime(appState.remainingTime),
+            style: const TextStyle(fontSize: 52, color: Color.fromRGBO(127, 222, 255, 1), fontFamily: 'Now-Black',),
+          ),
+        ],
+    ));
   }
 
   String _formatTime(int totalSeconds) {
@@ -141,7 +152,7 @@ class _WorkPageState extends State<WorkPage> {
 
   Widget _buildTimerInput() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: TextField(
         controller: _timeController,
         keyboardType: TextInputType.number,
@@ -187,6 +198,9 @@ class _WorkPageState extends State<WorkPage> {
         }
       }
     },
+    style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+      ),
     child: const Text('Set Timer'),
   );
 }
@@ -197,8 +211,10 @@ class _WorkPageState extends State<WorkPage> {
       child: ElevatedButton(
         onPressed: appState.isRunning ? null : appState.startSession,
         child: const Icon(Icons.play_arrow),
+        style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.secondary,
       ),
-    );
+    ));
   }
 
   Widget _buildStopButton(MainAppState appState) {
@@ -207,6 +223,9 @@ class _WorkPageState extends State<WorkPage> {
       child: ElevatedButton(
         onPressed: appState.isRunning ? appState.stopTimer : null,
         child: const Icon(Icons.stop),
+        style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+      ),
       ),
     );
   }
@@ -217,6 +236,9 @@ class _WorkPageState extends State<WorkPage> {
       child: ElevatedButton(
         onPressed: appState.resetTimer,
         child: const Icon(Icons.restart_alt),
+        style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+      ),
       ),
     );
   }
@@ -227,6 +249,9 @@ class _WorkPageState extends State<WorkPage> {
       child: ElevatedButton(
         onPressed: appState.resetSessions,
         child: const Icon(Icons.self_improvement),
+        style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+      ),
       ),
     );
   }
