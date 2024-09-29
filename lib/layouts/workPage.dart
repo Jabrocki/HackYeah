@@ -159,7 +159,7 @@ class _WorkPageState extends State<WorkPage> {
         controller: _timeController,
         keyboardType: TextInputType.number,
         decoration: const InputDecoration(
-          labelText: 'Set Timer (minutes)',
+          labelText: 'Set Timer (seconds) (for tests rest time is 4 seconds)',
           border: OutlineInputBorder(),
         ),
       ),
@@ -187,23 +187,26 @@ class _WorkPageState extends State<WorkPage> {
 }
 
   Widget _buildSetTimerButton(MainAppState appState) {
-  return ElevatedButton(
-    onPressed: () {
-      // Get the input from the controller
-      final String? input = _timeController.text;
-      if (input != null && input.isNotEmpty) {
-        // Parse it to an integer
-        final int? timerValue = int.tryParse(input);
-        if (timerValue != null) {
-          // Use the appState method to set the timer
-          appState.setTimer(timerValue);
+  return Tooltip(
+    message: 'complete check list to set timer',
+    child: ElevatedButton(
+      onPressed: () {
+        // Get the input from the controller
+        final String? input = _timeController.text;
+        if (input != null && input.isNotEmpty) {
+          // Parse it to an integer
+          final int? timerValue = int.tryParse(input);
+          if (timerValue != null) {
+            // Use the appState method to set the timer
+            appState.setTimer(timerValue);
+          }
         }
-      }
-    },
-    style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-      ),
-    child: const Text('Set Timer'),
+      },
+      style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+        ),
+      child: const Text('Set Timer'),
+    ),
   );
 }
 
@@ -212,10 +215,10 @@ class _WorkPageState extends State<WorkPage> {
       message: 'Start Timer',
       child: ElevatedButton(
         onPressed: appState.isRunning ? null : appState.startSession,
-        child: const Icon(Icons.play_arrow),
         style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.secondary,
       ),
+        child: const Icon(Icons.play_arrow),
     ));
   }
 
@@ -224,10 +227,10 @@ class _WorkPageState extends State<WorkPage> {
       message: 'Stop Timer',
       child: ElevatedButton(
         onPressed: appState.isRunning ? appState.stopTimer : null,
-        child: const Icon(Icons.stop),
         style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.secondary,
       ),
+        child: const Icon(Icons.stop),
       ),
     );
   }
@@ -237,10 +240,10 @@ class _WorkPageState extends State<WorkPage> {
       message: 'Reset Timer',
       child: ElevatedButton(
         onPressed: appState.resetTimer,
-        child: const Icon(Icons.restart_alt),
         style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.secondary,
       ),
+        child: const Icon(Icons.restart_alt),
       ),
     );
   }
@@ -250,23 +253,26 @@ class _WorkPageState extends State<WorkPage> {
       message: 'Reset Session Counter',
       child: ElevatedButton(
         onPressed: appState.resetSessions,
-        child: const Icon(Icons.self_improvement),
         style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.secondary,
       ),
+        child: const Icon(Icons.self_improvement),
       ),
     );
   }
 
   Widget _buildSessionIcons(MainAppState appState) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(appState.completedSessions, (index) {
-        return const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5.0),
-          child: Icon(Icons.check_circle, color: Colors.green),
-        );
-      }),
+    return Tooltip(
+      message: 'done sessions: ${appState.completedSessions}',
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(appState.completedSessions, (index) {
+          return const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5.0),
+            child: Icon(Icons.check_circle, color: Colors.green),
+            );
+        }),
+      ),
     );
   }
 }
