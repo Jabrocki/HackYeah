@@ -57,16 +57,28 @@ class _WorkPageState extends State<WorkPage> {
   AppBar _buildAppBar(MainAppState appState) {
     
     return AppBar(
+      centerTitle: false,
+      toolbarHeight: 120,
       title: 
            Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text('Health Work Session: ${appState.completedSessions}', style: TextStyle(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+             Text('Work Timer.', style: TextStyle(
+            fontFamily: 'Now',
+            fontWeight: FontWeight.bold,
+            fontSize: 40.0,
+            color: Theme.of(context).colorScheme.primary,
+             )),
+            Text('Health Work Session: ${appState.completedSessions}', style: TextStyle(
             fontFamily: 'Now',
             fontWeight: FontWeight.bold,
             fontSize: 30.0,
             color: Theme.of(context).colorScheme.primary,
-                    )),
-          ),
+            )),       
+          ]),)
         );
     // return AppBar(
     //   ,
@@ -74,27 +86,39 @@ class _WorkPageState extends State<WorkPage> {
   }
 
   Widget _buildCheckboxList(MainAppState appState) {
-    return Column(
+    return Container(
+                width: 380,
+                // Stylizacja
+                decoration: BoxDecoration(
+                border: Border.all(color: Theme.of(context).colorScheme.primary, width: 4.0),
+                color: Color.fromRGBO(79, 81, 140, 0.8),),
+      
+      child:Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(appState.checkboxes.length, (index) {
         return _buildCheckbox(appState, index);
       }),
-    );
+    ));
   }
 
   Widget _buildCheckbox(MainAppState appState, int index) {
-    return Column(
+    return(
+      
+      Row(
       children: [
         Checkbox(
+          side: const BorderSide(color: Color.fromRGBO(127, 222, 255, 1)),
           value: appState.getCheckboxState(index),
+          checkColor: Color.fromRGBO(144, 122, 214, 1),
           onChanged: (bool? newValue) {
             appState.changeCheckboxState(index);
             setState(() {});
           },
         ),
-        Text(appState.getCheckboxContent(index)),
+        Text(appState.getCheckboxContent(index), 
+              style: const TextStyle(fontSize: 20,color: Color.fromRGBO(127, 222, 255, 1))),
       ],
-    );
+    ));
   }
 
   Widget _buildRemainingTime(MainAppState appState) {
@@ -103,7 +127,7 @@ class _WorkPageState extends State<WorkPage> {
         Text('Remaining ${appState.currentState}:'),
         Text(
           _formatTime(appState.remainingTime),
-          style: const TextStyle(fontSize: 52),
+          style: const TextStyle(fontSize: 52, color: Color.fromRGBO(127, 222, 255, 1), fontFamily: 'Now-Black',),
         ),
       ],
     );

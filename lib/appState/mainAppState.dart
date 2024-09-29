@@ -96,17 +96,17 @@ class MainAppState extends ChangeNotifier {
     {
       'index': 0,
       'state': false,
-      'content': "Ergonomiczna postawa",
+      'content': "Ergonomic Stance",
     },
     {
       'index': 1,
       'state': false,
-      'content': "Prawidłowa odległość od monitora",
+      'content': "Screen distance",
     },
     {
       'index': 2,
       'state': false,
-      'content': "oświetlone otoczenie",
+      'content': "Illuminated environment",
     },
   ];
 
