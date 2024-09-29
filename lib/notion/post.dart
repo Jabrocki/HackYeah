@@ -8,7 +8,7 @@ class Post {
     required this.userName,
     required this.activity,
     required this.value,
-    required this.likes
+    required this.likes,
   });
 
   factory Post.fromMap(Map<String, dynamic> map) {

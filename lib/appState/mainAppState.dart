@@ -1,5 +1,7 @@
 // ignore_for_file: unused_import, file_names
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
@@ -97,6 +99,12 @@ class MainAppState extends ChangeNotifier {
   ];
 
 
+  List states = [
+    'Rest',
+    'Work',
+  ];
+
+  int _currentState = 1;
   bool everyBoxChecked = false;
   int settedTime = 0;
   int _remainingTime = 0; // pełny licznik
@@ -104,7 +112,7 @@ class MainAppState extends ChangeNotifier {
   bool _isRunning = false; //sprawdzanie czy timer jest uruchomiony
   int _completedSessions = 0; // licznik sesji pomodoro
 
-  
+  String get currentState => states[_currentState];
   int get remainingTime => _remainingTime;
   bool get isRunning => _isRunning;
   int get remainingMinutes => (_remainingTime / 60).floor();
@@ -117,7 +125,6 @@ class MainAppState extends ChangeNotifier {
 }
 
 
-
   void setTimer(int seconds) {
     if (seconds < 0) {
       throw ArgumentError("Time must be non-negative.");
@@ -125,27 +132,34 @@ class MainAppState extends ChangeNotifier {
     else if (_isRunning || !isEveryBoxChecked()) {
       return;
     }
-    settedTime = seconds*60;
+    settedTime = seconds;
     _remainingTime = settedTime;
     notifyListeners();
   }
 
-
-  void startTimer() {
+  void startSession() {
     // Logika odliczania czasu
-    if (_isRunning || !isEveryBoxChecked()) return;
+    if (_isRunning || !isEveryBoxChecked() || remainingTime == 0 || _currentState == 0) return;
 
     _isRunning = true;
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-      if (_remainingTime > 0) {
+      if (_remainingTime > 0 && _currentState == 1) {
         _remainingTime--;
         notifyListeners(); // Notify listeners about the time update
-      } else {
+      } else if (_remainingTime == 0 && _currentState == 1){
+        //start break instruction
+        _currentState = 0;
+        _remainingTime = 5;
+      } else if (_remainingTime > 0 && _currentState == 0) {
+        _remainingTime--;
+        notifyListeners();
+      } else if (_remainingTime == 0 && _currentState == 0){
         _completedSessions++;
-        stopTimer(); // Stop timer when countdown is complete
-        // Here you might want to notify listeners about session completion
-        notifyListeners(); // Notify about completed session
+        _currentState = 1;
+        stopTimer();
+        notifyListeners();
       }
+
     });
   }
 
@@ -196,7 +210,10 @@ class MainAppState extends ChangeNotifier {
   }
 
 
-  //posty 
+  void resetSessions() {
+  _completedSessions = 0;
+  notifyListeners();
+}
 
 
 }
