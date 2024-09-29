@@ -52,13 +52,13 @@ class MainAppState extends ChangeNotifier {
     },
     {
       "activity": "Skiing",
-      "unit": "km",
+      "unit": "kilometers",
       "icon": Icons.landscape,
       "desc": "The very art of balancing and engaging the core and key muscle groups during skiing and snowboarding makes the body more flexible."
     },
     {
       "activity": "Workout",
-      "unit": "h",
+      "unit": "hours",
       "icon": Icons.flag,
       "desc": "Regular physical activity can improve your muscle strength and boost your endurance."
     },
@@ -70,13 +70,13 @@ class MainAppState extends ChangeNotifier {
     },
     {
       "activity": "Running",
-      "unit": "km",
+      "unit": "kilometers",
       "icon": Icons.directions_walk,
       "desc": "Cardiovascular exercise can create new brain cells and improve overall brain performance."
     },
     {
       "activity": "Walking",
-      "unit": "km",
+      "unit": "kilometers",
       "icon": Icons.nordic_walking,
       "desc": "Walking is a great way to improve or maintain your overall health."
     }
@@ -125,6 +125,7 @@ class MainAppState extends ChangeNotifier {
   Timer? _timer; // Timer z biblioteki dart:async
   bool _isRunning = false; //sprawdzanie czy timer jest uruchomiony
   int _completedSessions = 0; // licznik sesji pomodoro
+  int _activityPopupIndex = 0; // Required for popup expressions
 
   String get currentState => states[_currentState];
   int get remainingTime => _remainingTime;
@@ -170,7 +171,7 @@ class MainAppState extends ChangeNotifier {
     else if (_isRunning || !isEveryBoxChecked()) {
       return;
     }
-    settedTime = seconds * 60;
+    settedTime = seconds;
     _remainingTime = settedTime;
     notifyListeners();
   }

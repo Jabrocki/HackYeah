@@ -27,6 +27,9 @@ flutter:
   assets:
     - img/logo_big.png
     - img/logo_small.png
+    - img/logo_clear.png
+    - img/logo_calendar.png
+    - img/logo_social.png
     - .env
   fonts:
     - family: Now

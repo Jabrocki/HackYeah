@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../appState/mainAppState.dart';
 import 'package:flutter_popup_card/flutter_popup_card.dart';
+import 'package:hackyeah/widgets/activityPopup.dart';
 
 class ActivityPage extends StatelessWidget {
   const ActivityPage({
@@ -17,8 +18,9 @@ class ActivityPage extends StatelessWidget {
     var mainAppState = context.watch<MainAppState>();
 
 
-    return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+    return
+        Scaffold(
+        backgroundColor: Colors.white.withOpacity(0),
         appBar: AppBar(
           title: Padding(
   
@@ -31,7 +33,17 @@ class ActivityPage extends StatelessWidget {
                     )),
           ),
         ),
-        body: GridView.count(
+        body: 
+        Container(
+        decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("img/logo_clear.png"),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+              Colors.white.withOpacity(0.2),
+                BlendMode.dstATop,),),),
+                child:
+          GridView.count(
           // Create a grid with 2 columns. If you change the scrollDirection to
           // horizontal, this produces 2 rows.
           crossAxisCount: 2,
@@ -45,18 +57,8 @@ class ActivityPage extends StatelessWidget {
                 showPopupCard(
                   context: context,
                   builder: (context) {
-                    return PopupCard(
-                    elevation: 8,
-                    child:Container(
-                      decoration: BoxDecoration(
-                      border: Border.all(color: Theme.of(context).colorScheme.primary, width: 4.0),
-                      color: Color.fromRGBO(79, 81, 140, 0.8),
-                    ),
-                    child: const Padding(
-                        padding: EdgeInsets.all(50),
-                        child: Text('This is a popup card'),
-                      ),
-                    )
+                    return (
+                      activityCard(indexHandler: index)
                     );
                   },
                   alignment: Alignment.center,
@@ -67,20 +69,29 @@ class ActivityPage extends StatelessWidget {
               child: Ink(height: 150, width: 150,
                 decoration: BoxDecoration(
                 border: Border.all(color: Theme.of(context).colorScheme.primary, width: 4.0),
-                color: Color.fromRGBO(79, 81, 140, 0.8),
+                color: Color.fromRGBO(79, 81, 140, 1),
               ),
-                 child:Center(child: Container(
+                 child:Center(child:
+                  Column(children:[ 
+                  Icon(
+                      mainAppState.activities[index]["icon"],
+                      color: Theme.of(context).colorScheme.primary,
+                      size: 80,
+                    ),
+                  Container(
                   child: Text(mainAppState.activities[index]["activity"], style: TextStyle(
                               color: Theme.of(context).colorScheme.primary,
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                             ),),
-                  ))
+                  ),
+                  ]),
                 ),
               )
-            );
+            ));
           }),
         ),
+        )
     );
   }
 }

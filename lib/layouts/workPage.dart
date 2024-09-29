@@ -21,7 +21,17 @@ class _WorkPageState extends State<WorkPage> {
 
     return Scaffold(
       appBar: _buildAppBar(appState),
-      body: SafeArea(
+      body:
+      Container(
+        decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("img/logo_calendar.png"),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+              Colors.white.withOpacity(0.1),
+                BlendMode.dstATop,),),),
+                child:
+      SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -41,13 +51,26 @@ class _WorkPageState extends State<WorkPage> {
           ),
         ),
       ),
-    );
+    ));
   }
 
   AppBar _buildAppBar(MainAppState appState) {
+    
     return AppBar(
-      title: Text('Health Work Session: ${appState.completedSessions}'),
-    );
+      title: 
+           Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text('Health Work Session: ${appState.completedSessions}', style: TextStyle(
+            fontFamily: 'Now',
+            fontWeight: FontWeight.bold,
+            fontSize: 30.0,
+            color: Theme.of(context).colorScheme.primary,
+                    )),
+          ),
+        );
+    // return AppBar(
+    //   ,
+    // );
   }
 
   Widget _buildCheckboxList(MainAppState appState) {

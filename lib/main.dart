@@ -63,8 +63,8 @@ class AppPage extends StatelessWidget {
 
     var mainAppState = context.watch<MainAppState>();
 
-    return mainAppState.logIn
-    ? const MainPage()
-    : const LogInPage();
+    // return mainAppState.logIn
+    return MainPage();
+    // : const LogInPage();
   }
 }
