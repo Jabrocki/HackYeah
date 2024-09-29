@@ -21,3 +21,22 @@ class Post {
     );
   }
 }
+
+class User {
+  final String userName;
+  final String password;
+
+
+  const User({
+    required this.userName,
+    required this.password,
+  });
+
+  factory User.fromMap(Map<String, dynamic> map) {
+    final properties = map['properties'] as Map<String, dynamic>;
+    return User(
+      userName: properties['UserName']?['title']?[0]?['plain_text'] ?? '??',
+      password: properties['Password']?['rich_text']?[0]?['plain_text'] ?? '??',
+    );
+  }
+}

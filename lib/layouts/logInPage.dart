@@ -1,21 +1,41 @@
 import 'dart:io';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../appState/mainAppState.dart';
+import 'package:crypto/crypto.dart';
 
-class LogInPage extends StatelessWidget {
+import '../notion/notion_repository.dart';
+import '../notion/post.dart';
+
+class LogInPage extends StatefulWidget {
   const LogInPage({
     super.key,
   });
 
   @override
+  State<LogInPage> createState() => _LogInPageState();
+}
+
+class _LogInPageState extends State<LogInPage> {
+  var login = "";
+  var password = "";
+
+  @override
   Widget build(BuildContext context) {
     var mainAppState = context.watch<MainAppState>();
 
-    var login = "";
-    var password = "";
+    Future<void> test() async {
+      List<User> _futureUsers = await ProfileRepository().getItems();
+      for (final _profile in _futureUsers) {
+        if ((_profile.userName == login) && (_profile.password == password)) {
+          mainAppState.logInTap();
+        }
+      }
+    }
 
+    
     return Scaffold(
       body: Container(
         color: Theme.of(context).colorScheme.surface,
@@ -51,7 +71,8 @@ class LogInPage extends StatelessWidget {
                   width: 250,
                   child: TextField(
                     onChanged: (String value) {
-                      password = value;
+                      var passInBytes = utf8.encode(value);
+                      password = sha256.convert(passInBytes).toString();
                     },
                     obscureText: true,
                     decoration: const InputDecoration(
@@ -65,10 +86,7 @@ class LogInPage extends StatelessWidget {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      if (mainAppState.loginAdmin == login &&
-                          mainAppState.passwordAdmin == password) {
-                        mainAppState.logInTap();
-                      }
+                      test();
                     },
                     child: Text("Login"))
               ]),
