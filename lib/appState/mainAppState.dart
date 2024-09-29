@@ -173,7 +173,7 @@ class MainAppState extends ChangeNotifier {
     else if (_isRunning || !isEveryBoxChecked()) {
       return;
     }
-    settedTime = seconds * 60;
+    settedTime = seconds * 1;
     _remainingTime = settedTime;
     notifyListeners();
   }
@@ -190,7 +190,7 @@ class MainAppState extends ChangeNotifier {
       } else if (_remainingTime == 0 && _currentState == 1){
         //start break instruction
         _currentState = 0;
-        _remainingTime = 300;
+        _remainingTime = 4;
       } else if (_remainingTime > 0 && _currentState == 0) {
         _remainingTime--;
         notifyListeners();
