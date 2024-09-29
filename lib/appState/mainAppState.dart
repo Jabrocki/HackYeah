@@ -43,28 +43,40 @@ class MainAppState extends ChangeNotifier {
 
   List activities = [
     {
-      "activity": "cycling",
-      "unit": "km"
+      "activity": "Cycling",
+      "unit": "kilometers",
+      "icon": Icons.bike_scooter,
+      "desc": "Cycling is an enjoyable way to stay healthy, including helping you lose weight, lower your cholesterol and strengthen your legs."
     },
     {
-      "activity": "skiing",
-      "unit": "km"
+      "activity": "Skiing",
+      "unit": "km",
+      "icon": Icons.landscape,
+      "desc": "The very art of balancing and engaging the core and key muscle groups during skiing and snowboarding makes the body more flexible."
     },
     {
-      "activity": "workout",
-      "unit": "h"
+      "activity": "Workout",
+      "unit": "h",
+      "icon": Icons.flag,
+      "desc": "Regular physical activity can improve your muscle strength and boost your endurance."
     },
     {
-      "activity": "pushups",
-      "unit": "times"
+      "activity": "Pushups",
+      "unit": "times",
+      "icon": Icons.arrow_upward,
+      "desc": "Doing push ups every day is good for building upper body muscles and even strengthening your core, back, and lower extremities."
     },
     {
-      "activity": "running",
-      "unit": "km"
+      "activity": "Running",
+      "unit": "km",
+      "icon": Icons.directions_walk,
+      "desc": "Cardiovascular exercise can create new brain cells and improve overall brain performance."
     },
     {
-      "activity": "walking",
-      "unit": "km"
+      "activity": "Walking",
+      "unit": "km",
+      "icon": Icons.nordic_walking,
+      "desc": "Walking is a great way to improve or maintain your overall health."
     }
   ];
 

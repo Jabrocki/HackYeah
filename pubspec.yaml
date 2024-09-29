@@ -31,6 +31,6 @@ flutter:
     - family: Now
       fonts:
         - asset: fonts/Now-Regular.otf
-        - asset: fonts/Now-Bold.otf
+        - asset: fonts/Now-Medium.otf
           weight: 700
 

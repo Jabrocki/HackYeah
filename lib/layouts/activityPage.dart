@@ -12,7 +12,7 @@ class ActivityPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const title = 'Activities';
+    const title = 'Activities.';
 
     var mainAppState = context.watch<MainAppState>();
 
@@ -20,9 +20,16 @@ class ActivityPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: AppBar(
-          title: Text(title, style: TextStyle(
-          color: Theme.of(context).colorScheme.primary,
-        )),
+          title: Padding(
+  
+            padding: const EdgeInsets.all(10.0),
+            child: Text(title, style: TextStyle(
+            fontFamily: 'Now',
+            fontWeight: FontWeight.bold,
+            fontSize: 40.0,
+            color: Theme.of(context).colorScheme.primary,
+                    )),
+          ),
         ),
         body: GridView.count(
           // Create a grid with 2 columns. If you change the scrollDirection to
@@ -32,14 +39,6 @@ class ActivityPage extends StatelessWidget {
           children: List.generate(mainAppState.activities.length, (index) {
             return Center(
               child: 
-              // ElevatedButton(
-              //   onPressed: () {},
-              //   child: Text(mainAppState.activities[index]),
-              //   style: ElevatedButton.styleFrom(
-              //     padding: EdgeInsets.symmetric(horizontal: 60.0, vertical: 20.0),
-              //     shape: StadiumBorder(),
-              //   ),
-              // ),
               InkWell(
                 borderRadius: BorderRadius.circular(25),
               onTap: () {
@@ -47,15 +46,17 @@ class ActivityPage extends StatelessWidget {
                   context: context,
                   builder: (context) {
                     return PopupCard(
-                      elevation: 8,
-                      color: Theme.of(context).colorScheme.secondary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: const Padding(
+                    elevation: 8,
+                    child:Container(
+                      decoration: BoxDecoration(
+                      border: Border.all(color: Theme.of(context).colorScheme.primary, width: 4.0),
+                      color: Color.fromRGBO(79, 81, 140, 0.8),
+                    ),
+                    child: const Padding(
                         padding: EdgeInsets.all(50),
                         child: Text('This is a popup card'),
                       ),
+                    )
                     );
                   },
                   alignment: Alignment.center,
@@ -65,11 +66,15 @@ class ActivityPage extends StatelessWidget {
               }, // Handle your callback
               child: Ink(height: 150, width: 150,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: BorderRadius.circular(25),
-                  ),
+                border: Border.all(color: Theme.of(context).colorScheme.primary, width: 4.0),
+                color: Color.fromRGBO(79, 81, 140, 0.8),
+              ),
                  child:Center(child: Container(
-                  child: Text(mainAppState.activities[index]["activity"]),
+                  child: Text(mainAppState.activities[index]["activity"], style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),),
                   ))
                 ),
               )
