@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, file_names
+// ignore_for_file: unused_import, file_names, unused_field, prefer_final_fields
 
 import 'dart:ffi';
 
@@ -127,6 +127,7 @@ class MainAppState extends ChangeNotifier {
   int _completedSessions = 0; // licznik sesji pomodoro
   int _activityPopupIndex = 0; // Required for popup expressions
 
+
   String get currentState => states[_currentState];
   int get remainingTime => _remainingTime;
   bool get isRunning => _isRunning;
@@ -171,7 +172,7 @@ class MainAppState extends ChangeNotifier {
     else if (_isRunning || !isEveryBoxChecked()) {
       return;
     }
-    settedTime = seconds;
+    settedTime = seconds * 60;
     _remainingTime = settedTime;
     notifyListeners();
   }
@@ -188,7 +189,7 @@ class MainAppState extends ChangeNotifier {
       } else if (_remainingTime == 0 && _currentState == 1){
         //start break instruction
         _currentState = 0;
-        _remainingTime = 5;
+        _remainingTime = 300;
       } else if (_remainingTime > 0 && _currentState == 0) {
         _remainingTime--;
         notifyListeners();

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:hackyeah/widgets/like.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +25,7 @@ class PostWidget extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         // Stylizacja
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,

@@ -1,3 +1,6 @@
+// ignore_for_file: unused_local_variable
+
+
 import 'package:flutter/material.dart';
 import 'package:hackyeah/appState/mainAppState.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +20,7 @@ class Like extends StatelessWidget {
 
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: [Icon(Icons.add), Text(likeNumber.toString())],
+      children: [const Icon(Icons.add), Text(likeNumber.toString())],
     );
   }
 }

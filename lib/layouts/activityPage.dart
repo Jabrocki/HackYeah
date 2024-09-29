@@ -37,7 +37,7 @@ class ActivityPage extends StatelessWidget {
         Container(
         decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("img/logo_clear.png"),
+                image: const AssetImage("img/logo_clear.png"),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
               Colors.white.withOpacity(0.2),
@@ -69,7 +69,7 @@ class ActivityPage extends StatelessWidget {
               child: Ink(height: 150, width: 150,
                 decoration: BoxDecoration(
                 border: Border.all(color: Theme.of(context).colorScheme.primary, width: 4.0),
-                color: Color.fromRGBO(79, 81, 140, 1),
+                color: const Color.fromRGBO(79, 81, 140, 1),
               ),
                  child:Center(child:
                   Column(children:[ 
@@ -78,13 +78,12 @@ class ActivityPage extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary,
                       size: 80,
                     ),
-                  Container(
-                  child: Text(mainAppState.activities[index]["activity"], style: TextStyle(
+                  Text(mainAppState.activities[index]["activity"], style: TextStyle(
                               color: Theme.of(context).colorScheme.primary,
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
-                            ),),
-                  ),
+                            ),
+                          ),
                   ]),
                 ),
               )
