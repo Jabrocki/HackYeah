@@ -33,7 +33,30 @@ class _CommunityPageState extends State<CommunityPage> {
     var mainAppState = context.watch<MainAppState>();
 
     return Scaffold(
-        body: FutureBuilder(
+      appBar: AppBar(
+          title: Padding(
+  
+            padding: const EdgeInsets.all(0),
+            child: Text("CarloSocial.", style: TextStyle(
+            fontFamily: 'Now',
+            fontWeight: FontWeight.bold,
+            fontSize: 40.0,
+            color: Theme.of(context).colorScheme.primary,
+                    )),
+          ),
+        ),
+        body:
+        Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("img/logo_social.png"),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+              Colors.white.withOpacity(0.2),
+                BlendMode.dstATop,
+                ))),
+          child:
+         FutureBuilder(
             future: _futurePosts,
             builder: (context, snapshots) {
               if (snapshots.hasData) {
@@ -54,6 +77,6 @@ class _CommunityPageState extends State<CommunityPage> {
                 return Center(child: Text(failure.message));
               }
               return const Center(child: CircularProgressIndicator());
-    }));
+    })));
   }
 }
