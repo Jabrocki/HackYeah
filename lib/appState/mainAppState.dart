@@ -104,6 +104,8 @@ class MainAppState extends ChangeNotifier {
     'Work',
   ];
 
+
+ 
   int _currentState = 1;
   bool everyBoxChecked = false;
   int settedTime = 0;
@@ -124,6 +126,30 @@ class MainAppState extends ChangeNotifier {
   return checkboxes.every((element) => element['state'] == true);
 }
 
+ // Zwraca stan checkboxa
+  bool getCheckboxState(int index) {
+    var checkbox = checkboxes.firstWhere((element) => element['index'] == index, orElse: () => null);
+    return checkbox != null ? checkbox['state'] : false;
+  }
+
+
+  String getCheckboxContent(int number) {
+  var checkbox = checkboxes.firstWhere((element) => element['index'] == number, orElse: () => null);
+  if (checkbox != null) {
+    return checkbox['content'];
+  }
+  return '';  // Return a default empty string
+}
+
+  // Zmienia stan checkboxa
+  bool changeCheckboxState(int number) {
+    var checkbox = checkboxes.firstWhere((element) => element['index'] == number, orElse: () => null);
+    if (checkbox != null) {
+      checkbox['state'] = !checkbox['state'];
+    }
+    return checkbox != null ? checkbox['state'] : false;
+  }
+
 
   void setTimer(int seconds) {
     if (seconds < 0) {
@@ -132,7 +158,7 @@ class MainAppState extends ChangeNotifier {
     else if (_isRunning || !isEveryBoxChecked()) {
       return;
     }
-    settedTime = seconds;
+    settedTime = seconds * 60;
     _remainingTime = settedTime;
     notifyListeners();
   }
@@ -164,33 +190,11 @@ class MainAppState extends ChangeNotifier {
   }
 
 
-  // Zwraca stan checkboxa
-  bool getCheckboxState(int index) {
-    var checkbox = checkboxes.firstWhere((element) => element['index'] == index, orElse: () => null);
-    return checkbox != null ? checkbox['state'] : false;
-  }
-
-
-  String getCheckboxContent(int number) {
-  var checkbox = checkboxes.firstWhere((element) => element['index'] == number, orElse: () => null);
-  if (checkbox != null) {
-    return checkbox['content'];
-  }
-  return '';  // Return a default empty string
-}
-
-  // Zmienia stan checkboxa
-  bool changeCheckboxState(int number) {
-    var checkbox = checkboxes.firstWhere((element) => element['index'] == number, orElse: () => null);
-    if (checkbox != null) {
-      checkbox['state'] = !checkbox['state'];
-    }
-    return checkbox != null ? checkbox['state'] : false;
-  }
-
-
   void stopTimer() {
     // Logika zatrzymywania czasu
+    if (_currentState == 0){
+      return;
+    }
     _isRunning = false;
     _timer?.cancel();
     notifyListeners();
