@@ -72,3 +72,34 @@ class ProfileRepository {
   }
 }
 
+class ActivityRepository {
+  static const String _baseUrl = 'https://api.notion.com/v1/';
+  final http.Client _client;
+
+  ActivityRepository({http.Client? client}) : _client = client ?? http.Client();
+
+  void dispose() {
+    _client.close();
+  }
+
+  Future<List<ActivityVar>> getItems() async {
+    try {
+      final url = '${_baseUrl}databases/${dotenv.env['NOTION_ACTIVITY_ID']}/query';
+      final response = await _client.post(Uri.parse(url), headers: {
+        HttpHeaders.authorizationHeader:
+            'Bearer ${dotenv.env['NOTION_API_KEY']}',
+        'Notion-Version': '2022-06-28'
+      });
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body) as Map<String, dynamic>;
+        return (data['results'] as List).map((e) => ActivityVar.fromMap(e)).toList();
+      } else {
+        throw const Failure(message: 'Something went wrong!');
+      }
+    } catch (_) {
+      throw const Failure(message: 'Something went wrong!');
+    }
+  }  
+}
+

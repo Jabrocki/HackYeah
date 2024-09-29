@@ -4,19 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_popup_card/flutter_popup_card.dart';
 import '../appState/mainAppState.dart';
 import 'package:provider/provider.dart';
+//notion
+import 'package:hackyeah/notion/post.dart';
 
 class activityCard extends StatelessWidget {
+  final ActivityVar activity_test_var;
   final int indexHandler;
   const activityCard({
+    required this.activity_test_var,
     required this.indexHandler,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    var mainAppState = context.watch<MainAppState>();
+    var icons_list = [
+      Icons.bike_scooter,
+      Icons.landscape,
+      Icons.flag,
+      Icons.arrow_upward,
+      Icons.directions_walk,
+      Icons.nordic_walking,
+    ];
 
-        return PopupCard(
+    return PopupCard(
     elevation: 8,
     child:Container(
       height: 350,
@@ -28,7 +39,7 @@ class activityCard extends StatelessWidget {
     child: Column(
                   children: [
                     Icon(
-                      mainAppState.activities[indexHandler]["icon"],
+                      icons_list[activity_test_var.activityIcon],
                       color: Theme.of(context).colorScheme.primary,
                       size: 80,
                     ),
@@ -39,14 +50,14 @@ class activityCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            mainAppState.activities[indexHandler]["activity"],
+                            activity_test_var.activityName,
                             style: TextStyle(
                               color: Theme.of(context).colorScheme.primary,
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                             ),
                           ),
-                          Text(mainAppState.activities[indexHandler]["desc"],
+                          Text(activity_test_var.desc,
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.primary,
                               fontSize: 15,
@@ -59,7 +70,7 @@ class activityCard extends StatelessWidget {
                                 child: TextField(
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(),
-                                    labelText: mainAppState.activities[indexHandler]["unit"],
+                                    labelText: activity_test_var.unit,
                                   ),
                                 ),
                               ),
