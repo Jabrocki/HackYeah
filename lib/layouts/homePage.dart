@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, file_names
+// ignore_for_file: unused_import, file_names, unused_local_variable
 
 import 'package:flutter/material.dart';
 import 'package:hackyeah/widgets/ridic_flexible.dart';
@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
       body: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("img/logo_big.png"),
+                image: const AssetImage("img/logo_big.png"),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
               Colors.white.withOpacity(0.2),
@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
         ),
               ),
             ),
-            child:Flex(
+            child:const Flex(
             direction: Axis.vertical, // Horizontal layout
             crossAxisAlignment: CrossAxisAlignment
                 .center, // Align children to the center along the cross axis

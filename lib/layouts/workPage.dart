@@ -1,6 +1,8 @@
 // ignore: file_names
 
 
+// ignore_for_file: unnecessary_nullable_for_final_variable_declarations
+
 import 'package:flutter/material.dart';
 import 'package:hackyeah/appState/mainAppState.dart';
 import 'package:provider/provider.dart';
