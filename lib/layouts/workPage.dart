@@ -1,14 +1,12 @@
-// ignore_for_file: file_names
+// ignore: file_names
+
 
 import 'package:flutter/material.dart';
 import 'package:hackyeah/appState/mainAppState.dart';
 import 'package:provider/provider.dart';
 
-
 class WorkPage extends StatefulWidget {
-  const WorkPage({
-    super.key,
-  });
+  const WorkPage({super.key});
 
   @override
   State<WorkPage> createState() => _WorkPageState();
@@ -16,96 +14,185 @@ class WorkPage extends StatefulWidget {
 
 class _WorkPageState extends State<WorkPage> {
   final TextEditingController _timeController = TextEditingController();
-  
+
   @override
-Widget build(BuildContext context) {
-  final appState = Provider.of<MainAppState>(context);
+  Widget build(BuildContext context) {
+    final appState = Provider.of<MainAppState>(context);
 
-  // Konwersja sekund na format minut:sekundy
-  String formatTime(int totalSeconds) {
-    int minutes = totalSeconds ~/ 60;
-    int seconds = totalSeconds % 60;
-    return "${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}";
-  }
-
-  return Scaffold(
-    appBar: AppBar(
-      title: Text(
-          'Health Work Session: ${appState.completedSessions}',
+    return Scaffold(
+      appBar: _buildAppBar(appState),
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildCheckboxList(appState),
+              const SizedBox(height: 20),
+              _buildRemainingTime(appState),
+              const SizedBox(height: 15),
+              _buildTimerInput(),
+              const SizedBox(height: 15),
+              _buildControlButtons(appState),
+              const SizedBox(height: 15),
+              _buildResetButton2(appState),
+              const SizedBox(height: 15),
+              _buildSessionIcons(appState),
+            ],
           ),
-      
-    ),
-    body: SafeArea(
-      child: Center(
-        child: Column(
-          
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (int i = 0; i < appState.checkboxes.length; i++)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Checkbox(
-                    value: appState.getCheckboxState(i), 
-                    onChanged: (bool? newValue) {
-                      appState.changeCheckboxState(i); //zmienia stan checkboxa
-                      setState(() {}); // odświeża UI 
-                    }
-                  ),
-                  Text(appState.getCheckboxContent(i)),
-                ],
-              ),
-            
-            Text(
-              formatTime(appState.remainingTime), // Wyświetlanie czasu
-              style: const TextStyle(fontSize: 52,),
-            ),
-            // Pole do wpisania czasu
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: TextField(
-                controller: _timeController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Set Timer (minutes)',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ),
-            const SizedBox(height: 15),
-            ElevatedButton(
-              onPressed: () {
-                final int? inputTime = int.tryParse(_timeController.text);
-                if (inputTime != null) {
-                  appState.setTimer(inputTime); // Zakładając, że masz taką metodę w MainAppState
-                }
-              },
-              child: const Text("Set Timer"),
-            ),
-            const SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: appState.isRunning ? null : () => appState.startTimer(),
-                  child: const Icon(Icons.play_arrow),
-                ),
-                const SizedBox(width: 15),
-                ElevatedButton(
-                  onPressed: appState.isRunning ? () => appState.stopTimer() : null,
-                  child: const Icon(Icons.stop),
-                ),
-                const SizedBox(width: 15),
-                ElevatedButton(
-                  onPressed: () => appState.resetTimer(),
-                  child: const Icon(Icons.restart_alt),
-                ),
-              ],
-            ),
-          ],
         ),
       ),
-    ),
+    );
+  }
+
+  AppBar _buildAppBar(MainAppState appState) {
+    return AppBar(
+      title: Text('Health Work Session: ${appState.completedSessions}'),
+    );
+  }
+
+  Widget _buildCheckboxList(MainAppState appState) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(appState.checkboxes.length, (index) {
+        return _buildCheckbox(appState, index);
+      }),
+    );
+  }
+
+  Widget _buildCheckbox(MainAppState appState, int index) {
+    return Column(
+      children: [
+        Checkbox(
+          value: appState.getCheckboxState(index),
+          onChanged: (bool? newValue) {
+            appState.changeCheckboxState(index);
+            setState(() {});
+          },
+        ),
+        Text(appState.getCheckboxContent(index)),
+      ],
+    );
+  }
+
+  Widget _buildRemainingTime(MainAppState appState) {
+    return Column(
+      children: [
+        Text('Remaining ${appState.currentState}:'),
+        Text(
+          _formatTime(appState.remainingTime),
+          style: const TextStyle(fontSize: 52),
+        ),
+      ],
+    );
+  }
+
+  String _formatTime(int totalSeconds) {
+    final minutes = totalSeconds ~/ 60;
+    final seconds = totalSeconds % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  }
+
+  Widget _buildTimerInput() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40),
+      child: TextField(
+        controller: _timeController,
+        keyboardType: TextInputType.number,
+        decoration: const InputDecoration(
+          labelText: 'Set Timer (minutes)',
+          border: OutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildControlButtons(MainAppState appState) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      _buildSetTimerButton(appState),
+      const SizedBox(height: 15), 
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _buildStartButton(appState),
+          const SizedBox(width: 15),
+          _buildStopButton(appState),
+          const SizedBox(width: 15),
+          _buildResetButton1(appState),// Add this new button
+        ],
+      ),
+    ],
   );
 }
+
+  Widget _buildSetTimerButton(MainAppState appState) {
+  return ElevatedButton(
+    onPressed: () {
+      // Get the input from the controller
+      final String? input = _timeController.text;
+      if (input != null && input.isNotEmpty) {
+        // Parse it to an integer
+        final int? timerValue = int.tryParse(input);
+        if (timerValue != null) {
+          // Use the appState method to set the timer
+          appState.setTimer(timerValue);
+        }
+      }
+    },
+    child: const Text('Set Timer'),
+  );
+}
+
+  Widget _buildStartButton(MainAppState appState) {
+    return Tooltip(
+      message: 'Start Timer',
+      child: ElevatedButton(
+        onPressed: appState.isRunning ? null : appState.startSession,
+        child: const Icon(Icons.play_arrow),
+      ),
+    );
+  }
+
+  Widget _buildStopButton(MainAppState appState) {
+    return Tooltip(
+      message: 'Stop Timer',
+      child: ElevatedButton(
+        onPressed: appState.isRunning ? appState.stopTimer : null,
+        child: const Icon(Icons.stop),
+      ),
+    );
+  }
+
+  Widget _buildResetButton1(MainAppState appState) {
+    return Tooltip(
+      message: 'Reset Timer',
+      child: ElevatedButton(
+        onPressed: appState.resetTimer,
+        child: const Icon(Icons.restart_alt),
+      ),
+    );
+  }
+
+  Widget _buildResetButton2(MainAppState appState) {
+    return Tooltip(
+      message: 'Reset Session Counter',
+      child: ElevatedButton(
+        onPressed: appState.resetSessions,
+        child: const Icon(Icons.self_improvement),
+      ),
+    );
+  }
+
+  Widget _buildSessionIcons(MainAppState appState) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(appState.completedSessions, (index) {
+        return const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5.0),
+          child: Icon(Icons.check_circle, color: Colors.green),
+        );
+      }),
+    );
+  }
 }
