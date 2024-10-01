@@ -5,12 +5,13 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 
 class MainAppState extends ChangeNotifier {
   int navBarIndex = 0;
 
   var logIn = false;
+
+  var activeUserName = "";
 
   void navBarTap(int index) {
     navBarIndex = index;

@@ -33,6 +33,7 @@ class _LogInPageState extends State<LogInPage> {
       for (final _profile in _futureUsers) {
         if ((_profile.userName == login) && (_profile.password == password)) {
           mainAppState.logInTap();
+          mainAppState.activeUserName = login;
         }
       }
     }

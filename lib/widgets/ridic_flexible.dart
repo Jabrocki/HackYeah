@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+
 class RidicFlexible extends StatelessWidget {
   final int test;
   final IconData iconBox;
@@ -29,7 +30,7 @@ class RidicFlexible extends StatelessWidget {
                 border: Border.all(color: Theme.of(context).colorScheme.primary, width: 4.0),
                 color: Color.fromRGBO(79, 81, 140, 0.8),
               ),
-                margin: const EdgeInsets.only(top: 30.0,left: 30, right: 30),
+                margin:  EdgeInsets.only(top: 30.0,left: 30, right: 30),
                 child: Row(
                   children: [
                     Icon(
@@ -38,7 +39,7 @@ class RidicFlexible extends StatelessWidget {
                       size: 50,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      padding: EdgeInsets.symmetric(horizontal: 15.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
